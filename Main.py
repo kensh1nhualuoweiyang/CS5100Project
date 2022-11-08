@@ -37,8 +37,8 @@ def main():
     curren_state = "Playing"
     sqSelected = ()
     playerClicks = []
-    possibleMove = state.getAllPossibleMoves()
-    while curren_state == state.STATE:
+    possibleMove = state.getValidMoves()
+    while curren_state == state.PLAYING:
         for e in p.event.get():
             if e.type == p.QUIT:
                 curren_state = "Quit"
@@ -53,17 +53,13 @@ def main():
                 else:
                     sqSelected = (row,col)
                     playerClicks.append(sqSelected)
-                if len(playerClicks) == 1:
-                    for move in possibleMove:
-                        if move.startRow == playerClicks[0][0] and move.startCol == playerClicks[0][1]:
-                            print((move.startRow,move.startCol,move.endRow,move.endCol,move.isEnpassantMove))
+               
                 if len(playerClicks) == 2:
                     moveMade = False
                     move = Engine.Move(playerClicks[0],playerClicks[1],state.board)
                     for moves in possibleMove:
                         if move == moves:                      
                             state.makeMove(moves)
-                            print(move.pieceCaptured)
                             sqSelected = ()
                             playerClicks = []
                             possibleMove = state.getValidMoves()
@@ -71,6 +67,14 @@ def main():
                             break
                     if not moveMade:
                         playerClicks = [sqSelected]
+                if state.checkMate:
+                    curren_state = "GAMEOVER"
+                    if state.whiteToMove:
+                        curren_state = "Black Win"
+                    else:
+                        curren_state = "White Win"
+                elif state.staleMate:
+                    curren_state = "Draw"
             elif e.type == p.KEYDOWN:
                 state.undoMove()
                 possibleMove = state.getValidMoves()
@@ -79,7 +83,7 @@ def main():
     
         drawGameState(screen,state)
         p.display.flip()
-    print(state.STATE)
+    print(curren_state)
 
 
 if __name__=="__main__":
