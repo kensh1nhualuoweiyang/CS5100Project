@@ -34,14 +34,14 @@ def main():
     screen.fill(p.Color("white"))
     state = Engine.GameState()
     loadImages()
-    running = True
+    curren_state = "Playing"
     sqSelected = ()
     playerClicks = []
     possibleMove = state.getAllPossibleMoves()
-    while running:
+    while curren_state == state.STATE:
         for e in p.event.get():
             if e.type == p.QUIT:
-                running = False
+                curren_state = "Quit"
             #Utilized for checking purposes
             elif e.type == p.MOUSEBUTTONDOWN:
                 location = p.mouse.get_pos()
@@ -53,23 +53,33 @@ def main():
                 else:
                     sqSelected = (row,col)
                     playerClicks.append(sqSelected)
+                if len(playerClicks) == 1:
+                    for move in possibleMove:
+                        if move.startRow == playerClicks[0][0] and move.startCol == playerClicks[0][1]:
+                            print((move.startRow,move.startCol,move.endRow,move.endCol,move.isEnpassantMove))
                 if len(playerClicks) == 2:
+                    moveMade = False
                     move = Engine.Move(playerClicks[0],playerClicks[1],state.board)
                     for moves in possibleMove:
-                        if moves.startRow == playerClicks[0][0] and moves.startCol == playerClicks[0][1]:
-                            print((moves.endRow,moves.endCol))
-                    print()
-                    if move in possibleMove:
-                        state.makeMove(move)
-                        sqSelected = ()
-                        playerClicks = []
-                        possibleMove = state.getAllPossibleMoves()
-                    else:
+                        if move == moves:                      
+                            state.makeMove(moves)
+                            print(move.pieceCaptured)
+                            sqSelected = ()
+                            playerClicks = []
+                            possibleMove = state.getValidMoves()
+                            moveMade = True
+                            break
+                    if not moveMade:
                         playerClicks = [sqSelected]
+            elif e.type == p.KEYDOWN:
+                state.undoMove()
+                possibleMove = state.getValidMoves()
 
 
+    
         drawGameState(screen,state)
         p.display.flip()
+    print(state.STATE)
 
 
 if __name__=="__main__":
