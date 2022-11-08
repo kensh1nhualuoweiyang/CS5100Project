@@ -1,7 +1,6 @@
 import numpy as np
 
 class GameState():
-    PLAYING = "Playing"
 
     def __init__(self):
         '''

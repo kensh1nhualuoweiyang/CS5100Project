@@ -38,7 +38,7 @@ def main():
     sqSelected = ()
     playerClicks = []
     possibleMove = state.getValidMoves()
-    while curren_state == state.PLAYING:
+    while curren_state == "Playing":
         for e in p.event.get():
             if e.type == p.QUIT:
                 curren_state = "Quit"
