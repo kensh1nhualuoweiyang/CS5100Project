@@ -9,14 +9,17 @@ STALEMATE = 0
 def minMaxMove(state,validMove,maxDepth):
     global nextMove
     nextMove = None
+    global moveExpanded 
+    moveExpanded= len(validMove)
     minMaxMoveHelper(state,maxDepth,validMove,state.whiteToMove,maxDepth)
     if nextMove is None:
         nextMove = random.choice(validMove)
-    return nextMove
+    return (nextMove,moveExpanded)
 
 
 def minMaxMoveHelper(state,depth,validMoves,whiteToMove,maxDepth):
     global nextMove
+    global moveExpanded
     random.shuffle(validMoves)
     if depth == 0:
         return evaluateBoard(state)    
@@ -25,6 +28,7 @@ def minMaxMoveHelper(state,depth,validMoves,whiteToMove,maxDepth):
         for move in validMoves:
             state.makeMove(move)
             moveSet = state.getValidMoves()
+            moveExpanded += len(moveSet)
             score = minMaxMoveHelper(state,depth-1,moveSet, False,maxDepth)
             if score > maxScore:
                 maxScore = score
@@ -37,6 +41,7 @@ def minMaxMoveHelper(state,depth,validMoves,whiteToMove,maxDepth):
         for move in validMoves:
             state.makeMove(move)
             moveSet = state.getValidMoves()
+            moveExpanded += len(moveSet)
             score = minMaxMoveHelper(state,depth-1,moveSet, True,maxDepth)
             if score < maxScore:
                 maxScore = score

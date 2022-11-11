@@ -7,7 +7,7 @@ DIMENSION = 8
 SQ_SIZE = HEIGHT//DIMENSION
 MAX_FPS = 15
 IMAGE = {}
-
+'''
 def loadImages():
     pieces = ["bB","bK","bN","bP","bQ","bR","wB","wK","wN","wP","wQ","wR"]
     for piece in pieces:
@@ -28,26 +28,52 @@ def drawBoard(screen,board):
 def drawGameState(screen,state):
     drawBoard(screen,state.board)
 
+'''
+
 
 def main():
-    p.init()
-    screen = p.display.set_mode((WIDTH,HEIGHT))
-    screen.fill(p.Color("white"))
+    #p.init()
+    #screen = p.display.set_mode((WIDTH,HEIGHT))
+    #screen.fill(p.Color("white"))
     state = Engine.GameState()
-    loadImages()
+    #loadImages()
+    whiteMoveExpanded = 0
+    blackMoveExpanded = 0
+    agentOneMethod ="GreedyHeuristicAgent"
+    agentTwoMethod = "GreedyHeuristicAgent"
+    agentOneDepth = 3
+    agentTwoDepth = 2
+    result = ""
     while not state.checkMate or not state.staleMate:
-        agentMove = GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),3)
-        state.makeMove(agentMove)     
-        drawGameState(screen,state)
-        p.display.flip()
+        if state.whiteToMove:
+            agentOne,moveExpanded= GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),agentOneDepth)
+            state.makeMove(agentOne)
+            whiteMoveExpanded += moveExpanded     
+            
+        else:
+            agentTwo,moveExpanded = GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),agentTwoDepth)
+            state.makeMove(agentTwo)     
+            blackMoveExpanded += moveExpanded
+            
+
+
+        #drawGameState(screen,state)
+        #p.display.flip()
+
     if state.checkMate():
         if state.whiteToMove:
-            print("Black Win")
+           result = "Black: {} with depth {} won against {} with Depth {}, total state expanded = {} for black and {} for white".format(
+            agentTwoMethod,agentTwoDepth,agentOneMethod,agentOneDepth,blackMoveExpanded,whiteMoveExpanded)
         else:
-            print("White Win")
+            result = "White: {} with depth {} won against {} with Depth {}, total state expanded = {} for White and {} for Black".format
+            agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,whiteMoveExpanded,blackMoveExpanded
     else:
-        print("Draw")
-
+        result = "{} with depth {} draw against {} with Depth {}, total state expanded = {} for white and {} for black".format(agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,
+        whiteMoveExpanded,blackMoveExpanded)
+    
+    f = open("GameResult.md","a")
+    f.write("<p>{}.<br>".format(result))
+    f.close()
 
 if __name__=="__main__":
     main()

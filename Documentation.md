@@ -1,3 +1,3 @@
-<h2>Issue with Pure MinMax with depth of 2:</h2>
+<h2>Issue with Both agent executing Pure MinMax with depth of 2:</h2>
 <p>Assume some situation wherer the black king is in threat of the white Queen, in the pure minimax setting the white queen will go staight forward to the black king and the most profitable move is the move that enhance its capability to the capture, however, in the black Kings's case, if there's other square  to escape to capture, it will execute such procedure since its the only valid move, and then the white queen will follow its action and continouesly trying to capture the black Kings, therefrore, we will have a cycle such that the black king always have a way to avoid the capture, but the white queen is continouesly trying to make the capture even though there's other piece on board that could assist the capture process, it will only execute the move on the white queen and disregarding the existence of other pieces</p>
 

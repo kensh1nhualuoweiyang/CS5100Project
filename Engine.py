@@ -4,7 +4,7 @@ class GameState():
 
     def __init__(self):
         '''
-        Represent the 8x8 chess board, first character is their color
+        Represent the nxn chess board, first character is their color
         and second character is their type,
         -- represents the initial empty space with no pieces.
         '''
@@ -139,8 +139,8 @@ class GameState():
        
     def getAllPossibleMoves(self):
         moves = []
-        for i in range(8):
-            for j in range(8):
+        for i in range(len(self.board)):
+            for j in range(len(self.board[0])):
                 color = self.board[i][j][0]
                 piece = self.board[i][j][1]                
                 if (color == "w" and self.whiteToMove) or (color == "b" and not self.whiteToMove):
@@ -214,10 +214,10 @@ class GameState():
     def rookAndBishopMove(self,row,col,moves,direction):
         enemyColor = "b" if self.whiteToMove else "w"
         for d in direction:
-            for i in range(1,8):
+            for i in range(1,len(self.board)):
                 endRow = row + d[0] * i
                 endCol = col + d[1] * i
-                if 0 <= endRow < 8 and 0 <= endCol < 8:
+                if 0 <= endRow < len(self.board) and 0 <= endCol < len(self.board[0]):
                     endPiece = self.board[endRow][endCol]
                     if endPiece == "--" :
                         moves.append(Move((row,col),(endRow,endCol),self.board))
@@ -234,7 +234,7 @@ class GameState():
         for d in direction:
             endRow = row+d[0]
             endCol = col+d[1]
-            if 0 <= endRow <8 and 0<= endCol < 8:
+            if 0 <= endRow <len(self.board) and 0<= endCol < len(self.board[0]):
                 endPiece = self.board[endRow][endCol]
                 if endPiece[0] == enemyColor or endPiece == "--":
                     moves.append(Move((row,col),(endRow,endCol),self.board))
