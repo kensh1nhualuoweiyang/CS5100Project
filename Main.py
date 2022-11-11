@@ -1,5 +1,6 @@
 import pygame as p
 import Engine
+import GreedyHeuristicAgent
 
 WIDTH = HEIGHT = 512
 DIMENSION = 8
@@ -34,56 +35,18 @@ def main():
     screen.fill(p.Color("white"))
     state = Engine.GameState()
     loadImages()
-    curren_state = "Playing"
-    sqSelected = ()
-    playerClicks = []
-    possibleMove = state.getValidMoves()
-    while curren_state == "Playing":
-        for e in p.event.get():
-            if e.type == p.QUIT:
-                curren_state = "Quit"
-            #Utilized for checking purposes
-            elif e.type == p.MOUSEBUTTONDOWN:
-                location = p.mouse.get_pos()
-                col = location[0]//SQ_SIZE
-                row = location[1]//SQ_SIZE
-                if sqSelected == (row,col):
-                    sqSelected = ()
-                    playerClicks = []
-                else:
-                    sqSelected = (row,col)
-                    playerClicks.append(sqSelected)
-               
-                if len(playerClicks) == 2:
-                    moveMade = False
-                    move = Engine.Move(playerClicks[0],playerClicks[1],state.board)
-                    for moves in possibleMove:
-                        if move == moves:                      
-                            state.makeMove(moves)
-                            sqSelected = ()
-                            playerClicks = []
-                            possibleMove = state.getValidMoves()
-                            moveMade = True
-                            break
-                    if not moveMade:
-                        playerClicks = [sqSelected]
-                if state.checkMate:
-                    curren_state = "GAMEOVER"
-                    if state.whiteToMove:
-                        curren_state = "Black Win"
-                    else:
-                        curren_state = "White Win"
-                elif state.staleMate:
-                    curren_state = "Draw"
-            elif e.type == p.KEYDOWN:
-                state.undoMove()
-                possibleMove = state.getValidMoves()
-
-
-    
+    while not state.checkMate or not state.staleMate:
+        agentMove = GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),3)
+        state.makeMove(agentMove)     
         drawGameState(screen,state)
         p.display.flip()
-    print(curren_state)
+    if state.checkMate():
+        if state.whiteToMove:
+            print("Black Win")
+        else:
+            print("White Win")
+    else:
+        print("Draw")
 
 
 if __name__=="__main__":
