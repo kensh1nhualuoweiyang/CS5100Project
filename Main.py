@@ -31,6 +31,8 @@ def drawGameState(screen,state):
 '''
 
 
+
+
 def main():
     #p.init()
     #screen = p.display.set_mode((WIDTH,HEIGHT))
@@ -43,37 +45,39 @@ def main():
     agentTwoMethod = "GreedyHeuristicAgent"
     agentOneDepth = 3
     agentTwoDepth = 2
-    result = ""
+    whiteMoveCount = 0
+    blackMoveCount = 0
     while not state.checkMate or not state.staleMate:
         if state.whiteToMove:
             agentOne,moveExpanded= GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),agentOneDepth)
             state.makeMove(agentOne)
-            whiteMoveExpanded += moveExpanded     
+            whiteMoveExpanded += moveExpanded
+            whiteMoveCount+=1
+            print("Current White Move Count = ",whiteMoveCount)    
             
         else:
             agentTwo,moveExpanded = GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),agentTwoDepth)
             state.makeMove(agentTwo)     
             blackMoveExpanded += moveExpanded
+            blackMoveCount+=1
+            print("Current Black Move Count = ",blackMoveCount)    
             
 
 
         #drawGameState(screen,state)
         #p.display.flip()
-
-    if state.checkMate():
-        if state.whiteToMove:
-           result = "Black: {} with depth {} won against {} with Depth {}, total state expanded = {} for black and {} for white".format(
-            agentTwoMethod,agentTwoDepth,agentOneMethod,agentOneDepth,blackMoveExpanded,whiteMoveExpanded)
-        else:
-            result = "White: {} with depth {} won against {} with Depth {}, total state expanded = {} for White and {} for Black".format
-            agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,whiteMoveExpanded,blackMoveExpanded
-    else:
-        result = "{} with depth {} draw against {} with Depth {}, total state expanded = {} for white and {} for black".format(agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,
-        whiteMoveExpanded,blackMoveExpanded)
-    
     f = open("GameResult.md","a")
-    f.write("<p>{}.<br>".format(result))
+    if state.checkMate:
+        if state.whiteToMove:
+            f.write("Black: {} with depth {} won against {} with Depth {}, total state expanded = {} for black and {} for white\n".format(
+            agentTwoMethod,agentTwoDepth,agentOneMethod,agentOneDepth,blackMoveExpanded,whiteMoveExpanded))
+        else:
+            f.write("White: {} with depth {} won against {} with Depth {}, total state expanded = {} for White and {} for Black\n".format(
+            agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,whiteMoveExpanded,blackMoveExpanded))
+    else:
+        f.write("{} with depth {} draw against {} with Depth {}, total state expanded = {} for white and {} for black\n".format(agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,
+        whiteMoveExpanded,blackMoveExpanded))
     f.close()
-
 if __name__=="__main__":
+    main()
     main()

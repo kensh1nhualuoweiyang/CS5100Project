@@ -1,0 +1,2 @@
+White Won: GreedyHeuristicAgent with depth 3 won against GreedyHeuristicAgent with Depth 2, total state expanded = 68731590 for White and 2200146 for Black
+White Won: GreedyHeuristicAgent with depth 3 won against GreedyHeuristicAgent with Depth 2, total state expanded = 80619475 for White and 2555895 for Black
