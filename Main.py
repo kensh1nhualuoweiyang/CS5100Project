@@ -1,12 +1,15 @@
+import math
+
 import pygame as p
 import Engine
 import GreedyHeuristicAgent
-
+import time
 WIDTH = HEIGHT = 512
 DIMENSION = 8
 SQ_SIZE = HEIGHT//DIMENSION
 MAX_FPS = 15
 IMAGE = {}
+
 '''
 def loadImages():
     pieces = ["bB","bK","bN","bP","bQ","bR","wB","wK","wN","wP","wQ","wR"]
@@ -28,6 +31,8 @@ def drawBoard(screen,board):
 def drawGameState(screen,state):
     drawBoard(screen,state.board)
 
+
+
 '''
 
 
@@ -47,17 +52,24 @@ def main():
     agentTwoDepth = 2
     whiteMoveCount = 0
     blackMoveCount = 0
+    startTime = time.time()
     while not state.checkMate or not state.staleMate:
         if state.whiteToMove:
-            agentOne,moveExpanded= GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),agentOneDepth)
+            agentOne,moveExpanded= GreedyHeuristicAgent.negaMaxAlphaBeta(state,state.getValidMoves(),agentOneDepth)
+            if agentOne == None:
+                break
             state.makeMove(agentOne)
+            
             whiteMoveExpanded += moveExpanded
             whiteMoveCount+=1
             print("Current White Move Count = ",whiteMoveCount)    
             
         else:
-            agentTwo,moveExpanded = GreedyHeuristicAgent.minMaxMove(state,state.getValidMoves(),agentTwoDepth)
-            state.makeMove(agentTwo)     
+            agentTwo,moveExpanded = GreedyHeuristicAgent.negaMaxAlphaBeta(state,state.getValidMoves(),agentTwoDepth)
+            if agentTwo == None:
+                break 
+            state.makeMove(agentTwo)    
+           
             blackMoveExpanded += moveExpanded
             blackMoveCount+=1
             print("Current Black Move Count = ",blackMoveCount)    
@@ -66,6 +78,7 @@ def main():
 
         #drawGameState(screen,state)
         #p.display.flip()
+    endTime = time.time()
     f = open("GameResult.md","a")
     if state.checkMate:
         if state.whiteToMove:
@@ -74,10 +87,13 @@ def main():
         else:
             f.write("White: {} with depth {} won against {} with Depth {}, total state expanded = {} for White and {} for Black\n".format(
             agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,whiteMoveExpanded,blackMoveExpanded))
-    else:
+    elif state.staleMate:
         f.write("{} with depth {} draw against {} with Depth {}, total state expanded = {} for white and {} for black\n".format(agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,
         whiteMoveExpanded,blackMoveExpanded))
+    totalTime = math.floor((endTime-startTime)/60)
+    f.write("Time Elapsed: {} minute\n".format(totalTime))
     f.close()
+    
 if __name__=="__main__":
-    main()
-    main()
+    for i in range(3):
+        main()

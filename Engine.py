@@ -26,6 +26,7 @@ class GameState():
         self.checkMate = False
         self.staleMate = False
         self.enpassantPossible = ()
+        self.enpassantPossibleLog = [self.enpassantPossible]
         self.moveLog = []
         self.currentCastlingRights = CastleRights(True,True,True,True)
         self.castleRightsLog = [CastleRights(self.currentCastlingRights.wK,self.currentCastlingRights.bK,self.currentCastlingRights.wQ,self.currentCastlingRights.bQ)]
@@ -44,10 +45,9 @@ class GameState():
             if move.isEnpassantMove:
                 self.board[move.endRow][move.endCol] = "--"
                 self.board[move.startRow][move.endCol] = move.pieceCaptured
-                self.enpassantPossible = (move.endRow,move.endCol)
-            if move.pieceMoved[1] == "P" and abs(move.startRow - move.endRow) == 2:
-                self.enpassantPossible = ()
-
+                
+            self.enpassantPossibleLog.pop()
+            self.enpassantPossible = self.enpassantPossibleLog[-1]
             self.castleRightsLog.pop()
             newRight = self.castleRightsLog[-1]
             self.currentCastlingRights = CastleRights(newRight.wK,newRight.bK,newRight.wQ,newRight.bQ)
@@ -59,7 +59,8 @@ class GameState():
                 else:
                     self.board[move.endRow][move.endCol-2] = self.board[move.endRow][move.endCol+1]
                     self.board[move.endRow][move.endCol+1] ="--" 
-
+            self.checkMate =False
+            self.staleMate = False
 
     def makeMove(self,move):
         self.board[move.startRow][move.startCol] = "--"
@@ -93,7 +94,7 @@ class GameState():
                 self.board[move.endRow][move.endCol+1] = self.board[move.endRow][move.endCol-2]
                 self.board[move.endRow][move.endCol-2] = "--"
                 
-
+        self.enpassantPossibleLog.append(self.enpassantPossible)
 
         self.updateCastleRights(move)
         self.castleRightsLog.append(CastleRights(self.currentCastlingRights.wK,self.currentCastlingRights.bK,
@@ -118,6 +119,19 @@ class GameState():
                 if move.startCol == 0:
                     self.currentCastlingRights.bQ = False
                 elif move.startCol == 7:
+                    self.currentCastlingRights.bK = False
+
+        if move.pieceCaptured == "wR":
+            if move.endRow == 7:
+                if move.endCol ==0:
+                    self.currentCastlingRights.wQ = False
+                elif move.endCol == 7:
+                    self.currentCastlingRights.wK = False
+        elif move.pieceCaptured =="bR":
+            if move.endRow == 0:
+                if move.endCol == 0:
+                    self.currentCastlingRights.bQ = False
+                elif move.endCol == 7:
                     self.currentCastlingRights.bK = False
 
 

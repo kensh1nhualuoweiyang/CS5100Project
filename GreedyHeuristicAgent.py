@@ -12,23 +12,22 @@ def minMaxMove(state,validMove,maxDepth):
     global moveExpanded 
     moveExpanded= len(validMove)
     minMaxMoveHelper(state,maxDepth,validMove,state.whiteToMove,maxDepth)
-    if nextMove is None:
+    if nextMove is None and len(validMove) > 0:
         nextMove = random.choice(validMove)
     return (nextMove,moveExpanded)
-
 
 def minMaxMoveHelper(state,depth,validMoves,whiteToMove,maxDepth):
     global nextMove
     global moveExpanded
     random.shuffle(validMoves)
+    moveExpanded+=1
     if depth == 0:
         return evaluateBoard(state)    
     if whiteToMove:
         maxScore = -CHECKMATE
         for move in validMoves:
             state.makeMove(move)
-            moveSet = state.getValidMoves()
-            moveExpanded += len(moveSet)
+            moveSet = state.getValidMoves()         
             score = minMaxMoveHelper(state,depth-1,moveSet, False,maxDepth)
             if score > maxScore:
                 maxScore = score
@@ -50,11 +49,40 @@ def minMaxMoveHelper(state,depth,validMoves,whiteToMove,maxDepth):
             state.undoMove()
         return maxScore
                 
-                
-    
-'''
-Greedy Heuristic that evaluate the board base on the current piece
-'''
+
+def negaMaxAlphaBeta(state,validMoves,depth):
+    global nextMove
+    global moveExpanded
+    moveExpanded= 0
+    nextMove = None
+    random.shuffle(validMoves)
+    negaMaxHelperWithAlphaBeta(state,validMoves, depth,1 if state.whiteToMove else -1,depth,-CHECKMATE,CHECKMATE)
+    if nextMove is None and len(validMoves) > 0:
+        nextMove = random.choice(validMoves)
+    return (nextMove,moveExpanded)
+
+def negaMaxHelperWithAlphaBeta(state,validMoves,depth,turnMultiplier,maxDepth,alpha,beta):
+    global nextMove
+    global moveExpanded
+    if depth == 0:
+        return turnMultiplier * evaluateBoard(state)
+    maxScore = -CHECKMATE
+    for move in validMoves:
+        state.makeMove(move)
+        moveSet = state.getValidMoves()
+        score = -negaMaxHelperWithAlphaBeta(state,moveSet,depth-1,-turnMultiplier,maxDepth,-beta,-alpha)
+        if score > maxScore:
+            maxScore = score
+            if depth == maxDepth:
+                nextMove = move
+        state.undoMove()
+        moveExpanded+=1
+        if maxScore > alpha:
+            alpha = maxScore
+        if alpha >= beta:
+            break
+    return maxScore
+
 def evaluateBoard(state):
     if state.checkMate:
         if state.whiteToMove:
