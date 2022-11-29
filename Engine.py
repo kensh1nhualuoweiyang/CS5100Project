@@ -31,7 +31,6 @@ class GameState():
         self.currentCastlingRights = CastleRights(True,True,True,True)
         self.castleRightsLog = [CastleRights(self.currentCastlingRights.wK,self.currentCastlingRights.bK,self.currentCastlingRights.wQ,self.currentCastlingRights.bQ)]
 
-
     def undoMove(self):
         if len(self.moveLog) != 0:
             move = self.moveLog.pop()

@@ -1,99 +1,106 @@
 import math
+import random
 
 import pygame as p
 import Engine
-import GreedyHeuristicAgent
+from GreedyHeuristicAgent import Agent
 import time
+
 WIDTH = HEIGHT = 512
 DIMENSION = 8
-SQ_SIZE = HEIGHT//DIMENSION
+SQ_SIZE = HEIGHT // DIMENSION
 MAX_FPS = 15
 IMAGE = {}
 
-'''
-def loadImages():
-    pieces = ["bB","bK","bN","bP","bQ","bR","wB","wK","wN","wP","wQ","wR"]
-    for piece in pieces:
-        IMAGE[piece] = p.transform.scale(p.image.load("images/" + piece +".png"),(SQ_SIZE,SQ_SIZE))
 
-def drawBoard(screen,board):
-    colors = [p.Color("white"),p.Color("gray")]
+def loadImages():
+    pieces = ["bB", "bK", "bN", "bP", "bQ", "bR", "wB", "wK", "wN", "wP", "wQ", "wR"]
+    for piece in pieces:
+        IMAGE[piece] = p.transform.scale(p.image.load("images/" + piece + ".png"), (SQ_SIZE, SQ_SIZE))
+
+
+def drawBoard(screen, board):
+    colors = [p.Color("white"), p.Color("gray")]
     for i in range(DIMENSION):
         for j in range(DIMENSION):
-            currentColor = colors[(i+j)%2]
-            p.draw.rect(screen,currentColor,p.Rect(j*SQ_SIZE,i*SQ_SIZE,SQ_SIZE,SQ_SIZE))
+            currentColor = colors[(i + j) % 2]
+            p.draw.rect(screen, currentColor, p.Rect(j * SQ_SIZE, i * SQ_SIZE, SQ_SIZE, SQ_SIZE))
             currentPiece = board[i][j]
             if currentPiece != "--":
-                screen.blit(IMAGE[currentPiece],p.Rect(j*SQ_SIZE,i*SQ_SIZE,SQ_SIZE,SQ_SIZE))
+                screen.blit(IMAGE[currentPiece], p.Rect(j * SQ_SIZE, i * SQ_SIZE, SQ_SIZE, SQ_SIZE))
 
 
-
-def drawGameState(screen,state):
-    drawBoard(screen,state.board)
-
-
-
-'''
-
-
-
-
-def main():
-    #p.init()
-    #screen = p.display.set_mode((WIDTH,HEIGHT))
-    #screen.fill(p.Color("white"))
-    state = Engine.GameState()
-    #loadImages()
-    whiteMoveExpanded = 0
-    blackMoveExpanded = 0
-    agentOneMethod ="GreedyHeuristicAgent"
-    agentTwoMethod = "GreedyHeuristicAgent"
-    agentOneDepth = 3
-    agentTwoDepth = 2
-    whiteMoveCount = 0
-    blackMoveCount = 0
+def drawGameState(screen, state):
+    drawBoard(screen, state.board)
+def playChess(state,agentOne,agentTwo):
+    totalMove = 0
     startTime = time.time()
     while not state.checkMate or not state.staleMate:
         if state.whiteToMove:
-            agentOne,moveExpanded= GreedyHeuristicAgent.negaMaxAlphaBeta(state,state.getValidMoves(),agentOneDepth)
-            if agentOne == None:
-                break
-            state.makeMove(agentOne)
-            
-            whiteMoveExpanded += moveExpanded
-            whiteMoveCount+=1
-            print("Current White Move Count = ",whiteMoveCount)    
-            
+            agentOneMove = agentOne.makeMove(state)
+            if agentOneMove is not None:
+                state.makeMove(agentOneMove)
+            else:
+                if len(state.getValidMoves()) == 0:
+                    break
+                state.makeMove(random.choice(state.getValidMoves()))
         else:
-            agentTwo,moveExpanded = GreedyHeuristicAgent.negaMaxAlphaBeta(state,state.getValidMoves(),agentTwoDepth)
-            if agentTwo == None:
-                break 
-            state.makeMove(agentTwo)    
-           
-            blackMoveExpanded += moveExpanded
-            blackMoveCount+=1
-            print("Current Black Move Count = ",blackMoveCount)    
-            
+            agentTwoMove = agentTwo.makeMove(state)
+            if agentTwoMove is not None:
+                state.makeMove(agentTwoMove)
+            else:
+                if len(state.getValidMoves()) == 0:
+                    break
+                state.makeMove(random.choice(state.getValidMoves()))
 
+        totalMove += 1
+        print("{} Move Made".format(totalMove))
 
-        #drawGameState(screen,state)
-        #p.display.flip()
+        # drawGameState(screen, state)
+        # p.display.flip()
     endTime = time.time()
-    f = open("GameResult.md","a")
+    f = open("GameResult.md", "a")
+    totalTime = math.floor((endTime - startTime) / 60)
     if state.checkMate:
         if state.whiteToMove:
-            f.write("Black: {} with depth {} won against {} with Depth {}, total state expanded = {} for black and {} for white\n".format(
-            agentTwoMethod,agentTwoDepth,agentOneMethod,agentOneDepth,blackMoveExpanded,whiteMoveExpanded))
+            f.write(
+                "\n{}\n{} victory against {} \nAgent Two Move Expanded: {} \nAgent One Move Expanded: {}\n".format(
+                    "_" * 70,
+                    agentTwo,
+                    agentOne,
+                    agentTwo.moveExpanded,
+                    agentOne.moveExpanded))
         else:
-            f.write("White: {} with depth {} won against {} with Depth {}, total state expanded = {} for White and {} for Black\n".format(
-            agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,whiteMoveExpanded,blackMoveExpanded))
+            f.write(
+                "\n{}\n{} victory against {} \nAgent One Move Expanded: {} \nAgent Two Move Expanded: {}\n".format(
+                    "_" * 70,
+                    agentOne,
+                    agentTwo,
+                    agentOne.moveExpanded,
+                    agentTwo.moveExpanded))
     elif state.staleMate:
-        f.write("{} with depth {} draw against {} with Depth {}, total state expanded = {} for white and {} for black\n".format(agentOneMethod,agentOneDepth,agentTwoMethod,agentTwoDepth,
-        whiteMoveExpanded,blackMoveExpanded))
-    totalTime = math.floor((endTime-startTime)/60)
-    f.write("Time Elapsed: {} minute\n".format(totalTime))
+        f.write("\n{}\n{} draw against {} \nAgent One Move Expanded: {} \nAgent Two Move Expanded: {}\n".format("_" * 70,
+                                                                                                            agentOne,
+                                                                                                            agentTwo,
+                                                                                                            agentOne.moveExpanded,
+                                                                                                            agentTwo.moveExpanded))
+
+    f.write("Time Elapsed: {} minute\n{}".format(totalTime, "_" * 70))
     f.close()
-    
-if __name__=="__main__":
-    for i in range(3):
-        main()
+def main():
+    #p.init()
+    #screen = p.display.set_mode((WIDTH, HEIGHT))
+    #screen.fill(p.Color("white"))
+
+    #loadImages()
+    agentOne = Agent(3, alphaBeta=True)
+    agentTwo = Agent(2)
+    for i in range(5):
+        state = Engine.GameState()
+        playChess(state,agentOne,agentTwo)
+
+
+
+
+if __name__ == "__main__":
+    main()
