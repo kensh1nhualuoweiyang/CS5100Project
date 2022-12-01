@@ -87,17 +87,25 @@ def playChess(state,agentOne,agentTwo):
 
     f.write("Time Elapsed: {} minute\n{}".format(totalTime, "_" * 70))
     f.close()
+
+def gameSetUp(agentOne,agentTwo):
+    for i in range(10):
+        state = Engine.GameState()
+        playChess(state, agentOne, agentTwo)
 def main():
     #p.init()
     #screen = p.display.set_mode((WIDTH, HEIGHT))
     #screen.fill(p.Color("white"))
 
     #loadImages()
-    agentOne = Agent(3, alphaBeta=True)
-    agentTwo = Agent(2)
-    for i in range(5):
-        state = Engine.GameState()
-        playChess(state,agentOne,agentTwo)
+    """
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True))
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True,positioning=True))
+    gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(3,alphaBeta=True))
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(3, alphaBeta=True,positioning=True))
+    """
+    gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(4,alphaBeta=True))
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(4, alphaBeta=True,positioning=True))
 
 
 

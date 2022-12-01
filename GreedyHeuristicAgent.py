@@ -71,7 +71,7 @@ class Agent():
         self.STALEMATE = 0
 
     def __str__(self):
-        return "Agent with depth {} {} ".format(self.depth, "with alpha beta" if self.alphaBeta else "", "with position evaluation" if self.positioning else "")
+        return "Agent with depth {} {} {}".format(self.depth, "with alpha beta" if self.alphaBeta else "", "with position evaluation" if self.positioning else "")
 
     def makeMove(self, state):
         if self.alphaBeta:
@@ -180,8 +180,8 @@ class Agent():
                         else:
                             positionScore = self.piecePositionScore[piece[1]][row][col]
                     if piece[0] == "w":
-                        result += self.valueMapping[col[1]] + positionScore * 0.1
+                        result += self.valueMapping[piece[1]]*0.4 + positionScore * 0.6
                     elif piece[0] == "b":
-                        result -= self.valueMapping[col[1]] + positionScore * 0.1
+                        result -= self.valueMapping[piece[1]]*0.4 + positionScore * 0.6
 
         return result
