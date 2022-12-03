@@ -144,3 +144,105 @@ Agent One Move Expanded: 936137
 Agent Two Move Expanded: 3749796
 Time Elapsed: 80 minute
 ______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3 with alpha beta  draw against Agent with depth 4 with alpha beta  
+Agent One Move Expanded: 224807 
+Agent Two Move Expanded: 1328939
+Time Elapsed: 85 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3 with alpha beta  draw against Agent with depth 4 with alpha beta  
+Agent One Move Expanded: 332143 
+Agent Two Move Expanded: 2041439
+Time Elapsed: 39 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3 with alpha beta  draw against Agent with depth 4 with alpha beta  
+Agent One Move Expanded: 563120 
+Agent Two Move Expanded: 3492566
+Time Elapsed: 92 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta  
+Agent Two Move Expanded: 4628909 
+Agent One Move Expanded: 759677
+Time Elapsed: 61 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta  
+Agent Two Move Expanded: 5407289 
+Agent One Move Expanded: 898668
+Time Elapsed: 59 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3 with alpha beta with position evaluation draw against Agent with depth 4 with alpha beta  
+Agent One Move Expanded: 255459 
+Agent Two Move Expanded: 850841
+Time Elapsed: 57 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 1556513 
+Agent One Move Expanded: 429427
+Time Elapsed: 60 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 2258389 
+Agent One Move Expanded: 583185
+Time Elapsed: 55 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 3438449 
+Agent One Move Expanded: 917133
+Time Elapsed: 83 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 4505260 
+Agent One Move Expanded: 1070735
+Time Elapsed: 87 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta with position evaluation victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 984447 
+Agent One Move Expanded: 125598
+Time Elapsed: 93 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta with position evaluation victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 1720886 
+Agent One Move Expanded: 313353
+Time Elapsed: 109 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta with position evaluation victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 2933350 
+Agent One Move Expanded: 484768
+Time Elapsed: 91 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta with position evaluation victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 3702503 
+Agent One Move Expanded: 604892
+Time Elapsed: 59 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta with position evaluation victory against Agent with depth 3 with alpha beta with position evaluation 
+Agent Two Move Expanded: 5474207 
+Agent One Move Expanded: 828175
+Time Elapsed: 127 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3 with alpha beta  victory against Agent with depth 4 with alpha beta with position evaluation 
+Agent One Move Expanded: 173824 
+Agent Two Move Expanded: 2029096
+Time Elapsed: 133 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3 with alpha beta  draw against Agent with depth 4 with alpha beta with position evaluation 
+Agent One Move Expanded: 352260 
+Agent Two Move Expanded: 3498330
+Time Elapsed: 95 minute
+______________________________________________________________________

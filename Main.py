@@ -89,7 +89,7 @@ def playChess(state,agentOne,agentTwo):
     f.close()
 
 def gameSetUp(agentOne,agentTwo):
-    for i in range(10):
+    for i in range(5):
         state = Engine.GameState()
         playChess(state, agentOne, agentTwo)
 def main():
@@ -103,9 +103,13 @@ def main():
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True,positioning=True))
     gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(3,alphaBeta=True))
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(3, alphaBeta=True,positioning=True))
-    """
+    gameSetUp(Agent(3, alphaBeta=True), Agent(4, alphaBeta=True))
     gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(4,alphaBeta=True))
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(4, alphaBeta=True,positioning=True))
+    """
+
+
+    gameSetUp(Agent(3, alphaBeta=True), Agent(4, alphaBeta=True, positioning=True))
 
 
 
