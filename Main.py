@@ -88,8 +88,8 @@ def playChess(state,agentOne,agentTwo):
     f.write("Time Elapsed: {} minute\n{}".format(totalTime, "_" * 70))
     f.close()
 
-def gameSetUp(agentOne,agentTwo):
-    for i in range(5):
+def gameSetUp(agentOne,agentTwo,gameCount):
+    for i in range(gameCount):
         state = Engine.GameState()
         playChess(state, agentOne, agentTwo)
 def main():
@@ -98,18 +98,18 @@ def main():
     #screen.fill(p.Color("white"))
 
     #loadImages()
+
     """
-    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True))
-    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True,positioning=True))
-    gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(3,alphaBeta=True))
-    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(3, alphaBeta=True,positioning=True))
-    gameSetUp(Agent(3, alphaBeta=True), Agent(4, alphaBeta=True))
-    gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(4,alphaBeta=True))
-    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(4, alphaBeta=True,positioning=True))
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True),5)
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True,positioning=True),5)
+    gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(3,alphaBeta=True),5)
+     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(3, alphaBeta=True,positioning=True),5)
+    :return:
     """
 
-
-    gameSetUp(Agent(3, alphaBeta=True), Agent(4, alphaBeta=True, positioning=True))
+    gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(4,alphaBeta=True),3)
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(4, alphaBeta=True,positioning=True),5)
+    gameSetUp(Agent(3, alphaBeta=True), Agent(4, alphaBeta=True, positioning=True),5)
 
 
 

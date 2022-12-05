@@ -180,8 +180,8 @@ class Agent():
                         else:
                             positionScore = self.piecePositionScore[piece[1]][row][col]
                     if piece[0] == "w":
-                        result += self.valueMapping[piece[1]]*0.4 + positionScore * 0.6
+                        result += self.valueMapping[piece[1]]*0.6 + positionScore * 0.4
                     elif piece[0] == "b":
-                        result -= self.valueMapping[piece[1]]*0.4 + positionScore * 0.6
+                        result -= self.valueMapping[piece[1]]*0.6 + positionScore * 0.4
 
         return result
