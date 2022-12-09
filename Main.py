@@ -103,13 +103,15 @@ def main():
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True),5)
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True,positioning=True),5)
     gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(3,alphaBeta=True),5)
-     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(3, alphaBeta=True,positioning=True),5)
-    :return:
-    """
-
+    gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(3, alphaBeta=True,positioning=True),5)
     gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(4,alphaBeta=True),3)
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(4, alphaBeta=True,positioning=True),5)
     gameSetUp(Agent(3, alphaBeta=True), Agent(4, alphaBeta=True, positioning=True),5)
+    :return:
+    """
+
+    gameSetUp(Agent(3), Agent(2), 5)
+    gameSetUp(Agent(3), Agent(4), 5)
 
 
 

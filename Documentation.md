@@ -3,3 +3,4 @@
 
 <p>Positioning of each chess</p>
 <P>Agent with same depth without positioning is likely to end up with a never/hard terminate game</P>
+<P>Agent with depth 5 vs depth 3: manually cancelled since it only made 27 move in about 3 hours</P>

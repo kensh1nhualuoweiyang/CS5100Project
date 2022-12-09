@@ -1,7 +1,34 @@
 Pure MiniMax:
-White Won: GreedyHeuristicAgent with depth 3 won against GreedyHeuristicAgent with Depth 2, total state expanded = 68731590 for White and 2200146 for Black
-White Won: GreedyHeuristicAgent with depth 3 won against GreedyHeuristicAgent with Depth 2, total state expanded = 80619475 for White and 2555895 for Black
-
+______________________________________________________________________
+Agent with depth 3   victory against Agent with depth 2   
+Agent One Move Expanded: 1038893 
+Agent Two Move Expanded: 21411
+Time Elapsed: 62 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3   victory against Agent with depth 2   
+Agent One Move Expanded: 1801960 
+Agent Two Move Expanded: 43578
+Time Elapsed: 38 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3   victory against Agent with depth 2   
+Agent One Move Expanded: 3189008 
+Agent Two Move Expanded: 73115
+Time Elapsed: 77 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3   victory against Agent with depth 2   
+Agent One Move Expanded: 4792015 
+Agent Two Move Expanded: 112008
+Time Elapsed: 101 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 3   draw against Agent with depth 2   
+Agent One Move Expanded: 5896111 
+Agent Two Move Expanded: 139954
+Time Elapsed: 53 minute
+______________________________________________________________________
 ______________________________________________________________________
 Agent with depth 3 with alpha beta  victory against Agent with depth 2   
 Agent One Move Expanded: 72708 
@@ -58,6 +85,12 @@ Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alph
 Agent Two Move Expanded: 4628909 
 Agent One Move Expanded: 759677
 Time Elapsed: 61 minute
+______________________________________________________________________
+______________________________________________________________________
+Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta  
+Agent Two Move Expanded: 3854759 
+Agent One Move Expanded: 459677
+Time Elapsed: 58 minute
 ______________________________________________________________________
 ______________________________________________________________________
 Agent with depth 4 with alpha beta  victory against Agent with depth 3 with alpha beta  
@@ -440,3 +473,4 @@ Agent Two Move Expanded: 6741716
 Agent One Move Expanded: 519478
 Time Elapsed: 104 minute
 ______________________________________________________________________
+
