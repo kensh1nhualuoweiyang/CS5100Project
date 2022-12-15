@@ -11,7 +11,8 @@ DIMENSION = 8
 SQ_SIZE = HEIGHT // DIMENSION
 MAX_FPS = 15
 IMAGE = {}
-
+screen = p.display.set_mode((WIDTH, HEIGHT))
+screen.fill(p.Color("white"))
 
 def loadImages():
     pieces = ["bB", "bK", "bN", "bP", "bQ", "bR", "wB", "wK", "wN", "wP", "wQ", "wR"]
@@ -56,8 +57,8 @@ def playChess(state,agentOne,agentTwo):
         totalMove += 1
         print("{} Move Made".format(totalMove))
 
-        # drawGameState(screen, state)
-        # p.display.flip()
+        drawGameState(screen, state)
+        p.display.flip()
     endTime = time.time()
     f = open("GameResult.md", "a")
     totalTime = math.floor((endTime - startTime) / 60)
@@ -93,13 +94,13 @@ def gameSetUp(agentOne,agentTwo,gameCount):
         state = Engine.GameState()
         playChess(state, agentOne, agentTwo)
 def main():
-    #p.init()
-    #screen = p.display.set_mode((WIDTH, HEIGHT))
-    #screen.fill(p.Color("white"))
+    p.init()
+    screen = p.display.set_mode((WIDTH, HEIGHT))
+    screen.fill(p.Color("white"))
 
-    #loadImages()
+    loadImages()
 
-    """
+
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True),5)
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(2, alphaBeta=True,positioning=True),5)
     gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(3,alphaBeta=True),5)
@@ -107,8 +108,7 @@ def main():
     gameSetUp(Agent(3, alphaBeta=True,positioning=True), Agent(4,alphaBeta=True),3)
     gameSetUp(Agent(3, alphaBeta=True, positioning=True), Agent(4, alphaBeta=True,positioning=True),5)
     gameSetUp(Agent(3, alphaBeta=True), Agent(4, alphaBeta=True, positioning=True),5)
-    :return:
-    """
+
 
     gameSetUp(Agent(3), Agent(2), 5)
     gameSetUp(Agent(3), Agent(4), 5)

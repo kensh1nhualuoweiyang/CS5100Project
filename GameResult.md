@@ -37,16 +37,6 @@ State Expanded:
 _______________________________________________________________________
 
 ______________________________________________________________________
-
-Agent with Depth 3 with Alpha Beta and Position Weight of 0.4 Vs Agent with Depth 2 with Alpha Beta
-Winning Rate: 5/5
-Draw:0
-Defeat:0
-State Expanded:
-    Depth 3: 3009682
-    Depth 2: 88781
-    Total Time Elapsed: 62 Min
-_______________________________________________________________________
 ______________________________________________________________________
 
 Agent with Depth 3 with Alpha Beta and Position Weight of 0.4 Vs Agent with Depth 2 with Alpha Beta and Position Weight of 0.4
